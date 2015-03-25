@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="translucent_red">#80ff0000</color>
+    <array name = "background">
+        <item>#FB8B24</item>
+        <item>#0197F6</item>
+        <item>#CE2D4F</item>
+        <item>#60D394</item>
+        <item>#ED6924</item>
+        <item>#7B904B</item>
+        <item>#576490</item>
+        <item>#FF9B85</item>
+        <item>#EA3788</item>
+        <item>#5E5B52</item>
+        <item>#616F6E</item>
+    </array>
+</resources>

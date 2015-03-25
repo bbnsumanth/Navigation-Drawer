@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NavigationDrawer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="drawer_open">open navigation drawer</string>
+    <string name="drawer_close">close navigation drawer</string>
+    <string-array name="categories">
+        <item>World News</item>
+        <item>National News</item>
+        <item>Business News</item>
+        <item>Technology News</item>
+        <item>Sports News</item>
+        <item>Entertainment News</item>
+        <item>Science News</item>
+
+    </string-array>
+
+
+</resources>
