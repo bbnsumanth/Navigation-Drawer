@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -26,6 +27,7 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     private String[] categories;
     private int[] colors;
     private ActionBarDrawerToggle drawerListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,18 +36,19 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
         listView = (ListView) findViewById(R.id.drawer);
         categories = getResources().getStringArray(R.array.categories);
         colors = getResources().getIntArray(R.array.background);
-        listView.setAdapter(new ArrayAdapter(this,R.layout.single_card,R.id.text,categories));
+        listView.setAdapter(new ArrayAdapter(this, R.layout.single_card, R.id.text, categories));
         listView.setOnItemClickListener(this);
 
         pager = (ViewPager) findViewById(R.id.pager);
 
 
-        drawerListener = new ActionBarDrawerToggle(this,drawerLayout,R.string.drawer_open,R.string.drawer_close){
-            public  void onDrawerOpened(View drawerView){
-                Toast.makeText(MainActivity.this,"drawer opened",Toast.LENGTH_SHORT).show();
+        drawerListener = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
+            public void onDrawerOpened(View drawerView) {
+                Toast.makeText(MainActivity.this, "drawer opened", Toast.LENGTH_SHORT).show();
             }
-            public  void onDrawerClosed(View drawerView){
-                Toast.makeText(MainActivity.this,"drawer closed",Toast.LENGTH_SHORT).show();
+
+            public void onDrawerClosed(View drawerView) {
+                Toast.makeText(MainActivity.this, "drawer closed", Toast.LENGTH_SHORT).show();
             }
         };
         drawerLayout.setDrawerListener(drawerListener);
@@ -54,18 +57,18 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
 
 
     }
-    public void onStart(){
+
+    public void onStart() {
         super.onStart();
 
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
         pager.setAdapter(new MyAdapter(manager));
     }
 
-    public  void  onPostCreate(Bundle savedInstanceState){
+    public void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         drawerListener.syncState();
     }
-
 
 
     @Override
@@ -84,7 +87,7 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
         if (id == R.id.action_settings) {
             return true;
         }
-        if(drawerListener.onOptionsItemSelected(item)){
+        if (drawerListener.onOptionsItemSelected(item)) {
             return true;
         }
 
@@ -92,15 +95,14 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     }
 
 
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this,"Hey "+categories[position]+" was clicked",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Hey " + categories[position] + " was clicked", Toast.LENGTH_SHORT).show();
         selectItem(position);
     }
 
     public void selectItem(int position) {
-        listView.setItemChecked(position,true);
+        listView.setItemChecked(position, true);
         setActionBarTitle(categories[position]);
     }
 
@@ -109,7 +111,7 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
     }
 
 
-    public class MyAdapter extends FragmentPagerAdapter {
+    public class MyAdapter extends FragmentStatePagerAdapter {
 
         public MyAdapter(android.support.v4.app.FragmentManager fm) {
             super(fm);
@@ -117,47 +119,13 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
 
         @Override
         public Fragment getItem(int i) {
-            Fragment frag = null;
 
-            if(i==0){
-                frag = new FragmentA();
 
-                //frag.textView.setText("You can see "+categories[i]+" here.");
-                //frag.rootLayout.setBackgroundColor(colors[i]);
+            Fragment frag = new FragmentA();
+            Bundle args = new Bundle();
+            args.putString("title", categories[i]);
+            frag.setArguments(args);
 
-            }
-
-            if(i==1){
-                frag = new FragmentA();
-                //frag.textView.setText("You can see "+categories[i]+" here.");
-               // frag.rootLayout.setBackgroundColor(colors[i]);
-
-            }
-            if(i==2){
-                frag = new FragmentB();
-                //frag.textView.setText("You can see "+categories[i]+" here.");
-                //frag.rootLayout.setBackgroundColor(colors[i]);
-            }
-            if(i==3){
-                frag = new FragmentC();
-                //frag.textView.setText("You can see "+categories[i]+" here.");
-                //frag.rootLayout.setBackgroundColor(colors[i]);
-            }
-            if(i==4){
-                frag = new FragmentA();
-                //frag.textView.setText("You can see "+categories[i]+" here.");
-                //frag.rootLayout.setBackgroundColor(colors[i]);
-            }
-            if(i==5){
-                frag = new FragmentB();
-                //frag.textView.setText("You can see "+categories[i]+" here.");
-                //frag.rootLayout.setBackgroundColor(colors[i]);
-            }
-            if(i==6){
-                frag = new FragmentC();
-                //frag.textView.setText("You can see "+categories[i]+" here.");
-                //frag.rootLayout.setBackgroundColor(colors[i]);
-            }
 
             return frag;
 
@@ -167,27 +135,28 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
         public int getCount() {
             return 7;
         }
-        public CharSequence getPageTitle(int i){
+
+        public CharSequence getPageTitle(int i) {
             String title = new String();
-            if(i==0){
+            if (i == 0) {
                 title = "World News";
             }
-            if(i==1){
+            if (i == 1) {
                 title = "National News";
             }
-            if(i==2){
+            if (i == 2) {
                 title = "Business News";
             }
-            if(i==3){
+            if (i == 3) {
                 title = "Technology News";
             }
-            if(i==4){
+            if (i == 4) {
                 title = "Sports News";
             }
-            if(i==5){
+            if (i == 5) {
                 title = "Entertainment News";
             }
-            if(i==6){
+            if (i == 6) {
                 title = "Science News";
             }
             return title;

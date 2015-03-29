@@ -12,15 +12,32 @@ import android.widget.TextView;
 public class FragmentA extends Fragment {
     public TextView textView;
     public View rootLayout;
+    public String title;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(getArguments() != null){
+            title = getArguments().getString("title");
+        }else{
+            title = "not updated";
+        }
+
+    }
+
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
         return inflater.inflate(R.layout.fragment_a,container,false);
 
     }
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
+
+
+    }
+    public void onStart(){
+        super.onStart();
         textView = (TextView) getActivity().findViewById(R.id.textView);
         rootLayout = getActivity().findViewById(R.id.rootLayout);
-
+        textView.setText(title);
     }
 
 }
